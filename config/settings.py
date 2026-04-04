@@ -12,6 +12,9 @@ class Settings(BaseSettings):
     music_url: str = "http://scrobble-receiver:42010"
     locations_url: str = "http://host.docker.internal:8100"
 
+    # Usage tracking
+    usage_dsn: str = ""
+
     # Auth
     auth_enabled: bool = True
     dev_user_email: str = "stu@mees.st"

@@ -1,6 +1,7 @@
 """Dashboard API — FastAPI application."""
 
 import sys
+from contextlib import asynccontextmanager
 from pathlib import Path
 
 _project_root = str(Path(__file__).resolve().parent.parent.parent)
@@ -15,13 +16,23 @@ from fastapi.staticfiles import StaticFiles
 from config.settings import settings
 from src.api.aggregator import fetch_dashboard
 from src.api.deps import CurrentUser, get_current_user
+from src.api.usage_tracker import init_usage_tracker, shutdown_usage_tracker, track_usage_middleware
 
 STATIC_DIR = Path(_project_root) / "static"
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    init_usage_tracker("dashboard", settings.usage_dsn)
+    yield
+    shutdown_usage_tracker()
+
 
 app = FastAPI(
     title="Dashboard API",
     version="0.1.0",
     description="Service aggregation dashboard",
+    lifespan=lifespan,
 )
 
 app.add_middleware(
@@ -31,6 +42,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.middleware("http")(track_usage_middleware)
 
 
 @app.get("/health")
