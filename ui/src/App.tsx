@@ -122,7 +122,7 @@ export default function App() {
   const cards = buildCards(data)
 
   return (
-    <div className="max-w-5xl mx-auto px-6 py-10">
+    <div className="max-w-5xl mx-auto px-4 py-6 md:px-6 md:py-10">
       <h1 className="text-2xl font-bold text-text-primary mb-8">Dashboard</h1>
       {isLoading && <p className="text-text-secondary">Loading...</p>}
       {error && <p className="text-expense">Failed to load dashboard data.</p>}
