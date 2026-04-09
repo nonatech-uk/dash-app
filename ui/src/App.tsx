@@ -103,6 +103,13 @@ function buildCards(data: DashboardData | undefined) {
           ]
         : [],
     },
+    {
+      name: 'Links',
+      icon: '\uD83D\uDD17',
+      href: 'https://links.mees.st',
+      available: true,
+      metrics: [],
+    },
   ]
 }
 
