@@ -16,6 +16,7 @@ from fastapi.staticfiles import StaticFiles
 from config.settings import settings
 from src.api.aggregator import fetch_dashboard
 from src.api.deps import CurrentUser, get_current_user
+from src.api.registry import router as registry_router
 from src.api.usage_tracker import init_usage_tracker, shutdown_usage_tracker, track_usage_middleware
 
 STATIC_DIR = Path(_project_root) / "static"
@@ -60,6 +61,9 @@ def auth_me(user: CurrentUser = Depends(get_current_user)):
 async def dashboard(request: Request, _user: CurrentUser = Depends(get_current_user)):
     headers = dict(request.headers)
     return await fetch_dashboard(headers)
+
+
+app.include_router(registry_router)
 
 
 # Serve React SPA

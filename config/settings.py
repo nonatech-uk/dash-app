@@ -15,11 +15,21 @@ class Settings(BaseSettings):
     # Usage tracking
     usage_dsn: str = ""
 
+    # App registry
+    registry_api_key: str = ""
+
     # Auth
     auth_enabled: bool = True
     dev_user_email: str = "stu@mees.st"
     cors_origins: list[str] = [
         "https://dash.mees.st",
+        "https://journal.mees.st",
+        "https://finance.mees.st",
+        "https://wine.mees.st",
+        "https://pipeline.mees.st",
+        "https://music.mees.st",
+        "https://locations.mees.st",
+        "https://stuff.mees.st",
         "http://localhost:5173",
     ]
 
